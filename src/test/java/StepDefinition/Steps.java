@@ -119,12 +119,13 @@ public class Steps {
 	@Given("^User opens Amazon$")
 	public void user_opens_Amazon() throws Throwable {
 		System.out.println("The method started user_opens_Amazon() ");
+		driver.get("https://www.amazon.com/");
 		if (pageAmazon.getWebTitle().contains("Amazon")) {
 			test.log(LogStatus.PASS, "Amazon page is available");
 			} else {
 			test.log(LogStatus.FAIL, "Amazon page is not available");
 			}
-		driver.get("https://www.amazon.com/");
+		driver.manage().window().maximize();
 		System.out.println("Executed: Open Executed");
 	}
 
@@ -170,15 +171,17 @@ public class Steps {
 
 	@Given("^User verifies viewable nav links exists$")
 	public void user_verifies_viewable_nav_links_exists() throws Throwable {
-		List<WebElement> list = pageAmazon.checkNavEle();
-		List<String> list2 = pageAmazon.getListEle(list);
-		int count =0;
 		System.out.println("Checking for 14 nav elements");
 		
-		for(String item: list2) {
-		System.out.println((item!= " ") ? "Excuted listItem[" +count+"] Link" : "Failed listitem[" +count+"] Link");
-		count++;
-		}
+		ArrayList<String> navBarEle = pageAmazon.getListEle(pageAmazon.checkNavEle());
+		navBarEle.forEach(j -> {
+			System.out.println((j != " ") ? ("Executed: navBar[" + j + "]") : ("Failed: navBar[" + j + "]"));
+			if (j != " ") {
+				test.log(LogStatus.PASS, "Amazon navBar element " + j + " is available");
+				} else {
+				test.log(LogStatus.FAIL, "Amazon navBar element " + j + " is not available");
+				}
+		});
 
 	}
 
@@ -191,12 +194,6 @@ public class Steps {
 	public void i_am_on_the_Amazon_home_page() throws Throwable {
 		String amazonTitle = "Amazon.com. Spend less. Smile more.";
 		System.out.println((pageAmazon.getWebTitle()==amazonTitle) ? "Excuted Amazon Title test" : "Failed Amazon Title test");
-
-	}
-
-	@When("^I check the list of viewable elements against a static list$")
-	public void i_check_the_list_of_viewable_elements_against_a_static_list() throws Throwable {
-		// ???
 
 	}
 

@@ -16,7 +16,6 @@ Feature: Test Amazon HomePage
     
     Scenario Outline: Verify nav elements
     Given I am on the Amazon home page
-    When I check the list of viewable elements against a static list
     Then I verify the status with <status>
     
     	Examples:

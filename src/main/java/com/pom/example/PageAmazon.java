@@ -63,9 +63,9 @@ public class PageAmazon {
 		return navBarEle;
 	}
 
-	public List<String> getListEle(List<WebElement> ele) {
+	public ArrayList<String> getListEle(List<WebElement> ele) {
 		int count = ele.size();
-		List<String> list = new ArrayList<>();
+		ArrayList<String> list = new ArrayList<>();
 
 		for (int i = 0; i < count; i++) {
 			list.add(ele.get(i).getText() + " \n");
